@@ -25,7 +25,7 @@
   *  -------------------------------------------------------------------------
   * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
   *  ------------------------------------------------------------------------- 
-* Created: Thu Oct 13 15:32:34 2016
+* Created: Tue Feb  7 08:41:54 2017
 */
 #define S_FUNCTION_LEVEL 2
 #define S_FUNCTION_NAME driver_DHT11_sfcn
@@ -67,10 +67,14 @@
 #define OUT_1_BIAS            0
 #define OUT_1_SLOPE           0.125
 
-#define NPARAMS              0
+#define NPARAMS              1
+/* Parameter  1 */
+#define PARAMETER_0_NAME      pinNumber
+#define PARAMETER_0_DTYPE     uint8_T
+#define PARAMETER_0_COMPLEX   COMPLEX_NO
 
 #define SAMPLE_TIME_0        INHERITED_SAMPLE_TIME
-#define NUM_DISC_STATES      0
+#define NUM_DISC_STATES      1
 #define DISC_STATES_IC       [0]
 #define NUM_CONT_STATES      0
 #define CONT_STATES_IC       [0]
@@ -86,13 +90,57 @@
 /* %%%-SFUNWIZ_defines_Changes_END --- EDIT HERE TO _BEGIN */
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 #include "simstruc.h"
+#define PARAM_DEF0(S) ssGetSFcnParam(S, 0)
+
+#define IS_PARAM_UINT8(pVal) (mxIsNumeric(pVal) && !mxIsLogical(pVal) &&\
+!mxIsEmpty(pVal) && !mxIsSparse(pVal) && !mxIsComplex(pVal) && mxIsUint8(pVal))
 
 extern void driver_DHT11_sfcn_Outputs_wrapper(real32_T *temperature,
-			real32_T *humidity);
+			real32_T *humidity,
+			const real_T *xD,
+			const uint8_T  *pinNumber, const int_T  p_width0);
+extern void driver_DHT11_sfcn_Update_wrapper(real32_T *temperature,
+			real32_T *humidity,
+			real_T *xD,
+			const uint8_T  *pinNumber,  const int_T  p_width0);
 
 /*====================*
  * S-function methods *
  *====================*/
+#define MDL_CHECK_PARAMETERS
+ #if defined(MDL_CHECK_PARAMETERS) && defined(MATLAB_MEX_FILE)
+   /* Function: mdlCheckParameters =============================================
+     * Abstract:
+     *    Validate our parameters to verify they are okay.
+     */
+    static void mdlCheckParameters(SimStruct *S)
+    {
+     int paramIndex  = 0;
+     bool validParam = false;
+     /* All parameters must match the S-function Builder Dialog */
+     
+
+	 {
+	  const mxArray *pVal0 = ssGetSFcnParam(S,0);
+	  if (!IS_PARAM_UINT8(pVal0)) {
+	    validParam = true;
+	    paramIndex = 0;
+	    goto EXIT_POINT;
+	  }
+	 }
+      
+     EXIT_POINT:
+      if (validParam) {
+          char parameterErrorMsg[1024];
+          sprintf(parameterErrorMsg, "The data type and or complexity of parameter  %d does not match the "
+                  "information specified in the S-function Builder dialog. "
+                  "For non-double parameters you will need to cast them using int8, int16, "
+                  "int32, uint8, uint16, uint32 or boolean.", paramIndex + 1);
+	  ssSetErrorStatus(S,parameterErrorMsg);
+      }
+	return;
+    }
+ #endif /* MDL_CHECK_PARAMETERS */
 /* Function: mdlInitializeSizes ===============================================
  * Abstract:
  *   Setup sizes of the various vectors.
@@ -101,10 +149,17 @@ static void mdlInitializeSizes(SimStruct *S)
 {
 
     DECL_AND_INIT_DIMSINFO(outputDimsInfo);
-    ssSetNumSFcnParams(S, NPARAMS);
-     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
-	 return; /* Parameter mismatch will be reported by Simulink */
-     }
+    ssSetNumSFcnParams(S, NPARAMS);  /* Number of expected parameters */
+      #if defined(MATLAB_MEX_FILE)
+	if (ssGetNumSFcnParams(S) == ssGetSFcnParamsCount(S)) {
+	  mdlCheckParameters(S);
+	  if (ssGetErrorStatus(S) != NULL) {
+	    return;
+	  }
+	 } else {
+	   return; /* Parameter mismatch will be reported by Simulink */
+	 }
+      #endif
 
     ssSetNumContStates(S, NUM_CONT_STATES);
     ssSetNumDiscStates(S, NUM_DISC_STATES);
@@ -147,7 +202,19 @@ static void mdlInitializeSampleTimes(SimStruct *S)
     ssSetModelReferenceSampleTimeDefaultInheritance(S);
     ssSetOffsetTime(S, 0, 0.0);
 }
-
+#define MDL_INITIALIZE_CONDITIONS
+ /* Function: mdlInitializeConditions ========================================
+  * Abstract:
+  *    Initialize the states
+  */
+ static void mdlInitializeConditions(SimStruct *S)
+ {
+   real_T *xD   = ssGetRealDiscStates(S);
+   
+    
+    xD[0] =  0;
+    
+ }
 #define MDL_SET_OUTPUT_PORT_DATA_TYPE
 static void mdlSetOutputPortDataType(SimStruct *S, int port, DTypeId dType)
 {
@@ -159,6 +226,18 @@ static void mdlSetDefaultPortDataTypes(SimStruct *S)
 {
    ssSetOutputPortDataType(S, 0, SS_DOUBLE);
 }
+
+#define MDL_SET_WORK_WIDTHS
+#if defined(MDL_SET_WORK_WIDTHS) && defined(MATLAB_MEX_FILE)
+
+static void mdlSetWorkWidths(SimStruct *S)
+{
+
+     const char_T *rtParamNames[] = {"P1"};
+     ssRegAllTunableParamsAsRunTimeParams(S, rtParamNames);
+}
+
+#endif
 /* Function: mdlOutputs =======================================================
  *
 */
@@ -166,11 +245,31 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 {
     real32_T        *temperature  = (real32_T *)ssGetOutputPortRealSignal(S,0);
     real32_T        *humidity  = (real32_T *)ssGetOutputPortRealSignal(S,1);
+    const real_T   *xD = ssGetDiscStates(S);
+    const int_T   p_width0  = mxGetNumberOfElements(PARAM_DEF0(S));
+    const uint8_T  *pinNumber  = (const uint8_T *)mxGetData(PARAM_DEF0(S));
 
-    driver_DHT11_sfcn_Outputs_wrapper(temperature, humidity);
+    driver_DHT11_sfcn_Outputs_wrapper(temperature, humidity, xD, pinNumber, p_width0);
 
 }
+#define MDL_UPDATE  /* Change to #undef to remove function */
+/* Function: mdlUpdate ======================================================
+   * Abstract:
+   *    This function is called once for every major integration time step.
+   *    Discrete states are typically updated here, but this function is useful
+   *    for performing any tasks that should only take place once per
+   *    integration step.
+   */
+  static void mdlUpdate(SimStruct *S, int_T tid)
+  {
+    real_T         *xD  = ssGetDiscStates(S);
+    real32_T        *temperature  = (real32_T *)ssGetOutputPortRealSignal(S,0);
+    real32_T        *humidity  = (real32_T *)ssGetOutputPortRealSignal(S,1);
+    const int_T   p_width0  = mxGetNumberOfElements(PARAM_DEF0(S));
+    const uint8_T  *pinNumber  = (const uint8_T *)mxGetData(PARAM_DEF0(S));
 
+    driver_DHT11_sfcn_Update_wrapper(temperature, humidity,  xD, pinNumber, p_width0);
+}
 
 
 /* Function: mdlTerminate =====================================================
