@@ -1,4 +1,10 @@
-# arduinoSimulink
-Drivers and Examples for usage of MATLAB/Simulink with several Arduino modules.
+# arduinoSimulink: Use MATLAB/Simulink with Arduino
 
-Have a look at the the [Wiki](https://github.com/RaphvK/arduinoSimulink/wiki "Wiki of arduinoSimulink") for more information.
+This project intends to show the benefits of using MATLAB/Simulink to 
+generate code for Arduino hardware. 
+The project includes a Simulink library containing blocks for usage
+of several common Arduino modules (f. i. LC-Display) and examples that
+show how they can be used.
+
+Have a look at the the [Wiki](https://github.com/RaphvK/arduinoSimulink/wiki "Wiki of arduinoSimulink") 
+for more information and HowTos.
