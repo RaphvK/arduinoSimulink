@@ -35,17 +35,17 @@
 extern "C" void driver_LCD1602_sfcn_Outputs_wrapper(const uint8_T *row1_ascii,
 			const uint8_T *row2_ascii,
 			const real_T *xD,
-			const real_T  *rsParam, const int_T  p_width0,
-			const real_T  *enParam, const int_T  p_width1,
-			const real_T  *d4Param, const int_T  p_width2,
-			const real_T  *d5Param, const int_T  p_width3,
-			const real_T  *d6Param, const int_T  p_width4,
-			const real_T  *d7Param, const int_T  p_width5)
+			const uint8_T  *rsParam, const int_T  p_width0,
+			const uint8_T  *enParam, const int_T  p_width1,
+			const uint8_T  *d4Param, const int_T  p_width2,
+			const uint8_T  *d5Param, const int_T  p_width3,
+			const uint8_T  *d6Param, const int_T  p_width4,
+			const uint8_T  *d7Param, const int_T  p_width5)
 {
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_BEGIN --- EDIT HERE TO _END */
 /* Loop */
 if(xD[0] == 1) {
-    #ifndef MATLAB_MEX_FILE     // Only when code for hardware is generated
+    #ifndef MATLAB_MEX_FILE
         lcd.clear();
         /* Row 1 */
             lcd.setCursor(0,0);
@@ -76,12 +76,12 @@ if(xD[0] == 1) {
 extern "C" void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 			const uint8_T *row2_ascii,
 			real_T *xD,
-			const real_T  *rsParam,  const int_T  p_width0,
-			const real_T  *enParam,  const int_T  p_width1,
-			const real_T  *d4Param,  const int_T  p_width2,
-			const real_T  *d5Param,  const int_T  p_width3,
-			const real_T  *d6Param,  const int_T  p_width4,
-			const real_T  *d7Param,  const int_T  p_width5)
+			const uint8_T  *rsParam,  const int_T  p_width0,
+			const uint8_T  *enParam,  const int_T  p_width1,
+			const uint8_T  *d4Param,  const int_T  p_width2,
+			const uint8_T  *d5Param,  const int_T  p_width3,
+			const uint8_T  *d6Param,  const int_T  p_width4,
+			const uint8_T  *d7Param,  const int_T  p_width5)
 {
   /* %%%-SFUNWIZ_wrapper_Update_Changes_BEGIN --- EDIT HERE TO _END */
 /* Setup */

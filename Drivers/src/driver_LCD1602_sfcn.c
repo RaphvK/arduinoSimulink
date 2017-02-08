@@ -25,7 +25,7 @@
   *  -------------------------------------------------------------------------
   * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
   *  ------------------------------------------------------------------------- 
-* Created: Thu Oct 13 10:31:12 2016
+* Created: Wed Feb  8 11:45:24 2017
 */
 #define S_FUNCTION_LEVEL 2
 #define S_FUNCTION_NAME driver_LCD1602_sfcn
@@ -72,27 +72,27 @@
 #define NPARAMS              6
 /* Parameter  1 */
 #define PARAMETER_0_NAME      rsParam
-#define PARAMETER_0_DTYPE     real_T
+#define PARAMETER_0_DTYPE     uint8_T
 #define PARAMETER_0_COMPLEX   COMPLEX_NO
 /* Parameter  2 */
 #define PARAMETER_1_NAME      enParam
-#define PARAMETER_1_DTYPE     real_T
+#define PARAMETER_1_DTYPE     uint8_T
 #define PARAMETER_1_COMPLEX   COMPLEX_NO
 /* Parameter  3 */
 #define PARAMETER_2_NAME      d4Param
-#define PARAMETER_2_DTYPE     real_T
+#define PARAMETER_2_DTYPE     uint8_T
 #define PARAMETER_2_COMPLEX   COMPLEX_NO
 /* Parameter  4 */
 #define PARAMETER_3_NAME      d5Param
-#define PARAMETER_3_DTYPE     real_T
+#define PARAMETER_3_DTYPE     uint8_T
 #define PARAMETER_3_COMPLEX   COMPLEX_NO
 /* Parameter  5 */
 #define PARAMETER_4_NAME      d6Param
-#define PARAMETER_4_DTYPE     real_T
+#define PARAMETER_4_DTYPE     uint8_T
 #define PARAMETER_4_COMPLEX   COMPLEX_NO
 /* Parameter  6 */
 #define PARAMETER_5_NAME      d7Param
-#define PARAMETER_5_DTYPE     real_T
+#define PARAMETER_5_DTYPE     uint8_T
 #define PARAMETER_5_COMPLEX   COMPLEX_NO
 
 #define SAMPLE_TIME_0        INHERITED_SAMPLE_TIME
@@ -119,27 +119,27 @@
 #define PARAM_DEF4(S) ssGetSFcnParam(S, 4)
 #define PARAM_DEF5(S) ssGetSFcnParam(S, 5)
 
-#define IS_PARAM_DOUBLE(pVal) (mxIsNumeric(pVal) && !mxIsLogical(pVal) &&\
-!mxIsEmpty(pVal) && !mxIsSparse(pVal) && !mxIsComplex(pVal) && mxIsDouble(pVal))
+#define IS_PARAM_UINT8(pVal) (mxIsNumeric(pVal) && !mxIsLogical(pVal) &&\
+!mxIsEmpty(pVal) && !mxIsSparse(pVal) && !mxIsComplex(pVal) && mxIsUint8(pVal))
 
 extern void driver_LCD1602_sfcn_Outputs_wrapper(const uint8_T *row1_ascii,
 			const uint8_T *row2_ascii,
 			const real_T *xD,
-			const real_T  *rsParam, const int_T  p_width0,
-			const real_T  *enParam, const int_T  p_width1,
-			const real_T  *d4Param, const int_T  p_width2,
-			const real_T  *d5Param, const int_T  p_width3,
-			const real_T  *d6Param, const int_T  p_width4,
-			const real_T  *d7Param, const int_T  p_width5);
+			const uint8_T  *rsParam, const int_T  p_width0,
+			const uint8_T  *enParam, const int_T  p_width1,
+			const uint8_T  *d4Param, const int_T  p_width2,
+			const uint8_T  *d5Param, const int_T  p_width3,
+			const uint8_T  *d6Param, const int_T  p_width4,
+			const uint8_T  *d7Param, const int_T  p_width5);
 extern void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 			const uint8_T *row2_ascii,
 			real_T *xD,
-			const real_T  *rsParam,  const int_T  p_width0,
-			const real_T  *enParam,  const int_T  p_width1,
-			const real_T  *d4Param,  const int_T  p_width2,
-			const real_T  *d5Param,  const int_T  p_width3,
-			const real_T  *d6Param,  const int_T  p_width4,
-			const real_T  *d7Param,  const int_T  p_width5);
+			const uint8_T  *rsParam,  const int_T  p_width0,
+			const uint8_T  *enParam,  const int_T  p_width1,
+			const uint8_T  *d4Param,  const int_T  p_width2,
+			const uint8_T  *d5Param,  const int_T  p_width3,
+			const uint8_T  *d6Param,  const int_T  p_width4,
+			const uint8_T  *d7Param,  const int_T  p_width5);
 
 /*====================*
  * S-function methods *
@@ -159,7 +159,7 @@ extern void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 
 	 {
 	  const mxArray *pVal0 = ssGetSFcnParam(S,0);
-	  if (!IS_PARAM_DOUBLE(pVal0)) {
+	  if (!IS_PARAM_UINT8(pVal0)) {
 	    validParam = true;
 	    paramIndex = 0;
 	    goto EXIT_POINT;
@@ -168,7 +168,7 @@ extern void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 
 	 {
 	  const mxArray *pVal1 = ssGetSFcnParam(S,1);
-	  if (!IS_PARAM_DOUBLE(pVal1)) {
+	  if (!IS_PARAM_UINT8(pVal1)) {
 	    validParam = true;
 	    paramIndex = 1;
 	    goto EXIT_POINT;
@@ -177,7 +177,7 @@ extern void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 
 	 {
 	  const mxArray *pVal2 = ssGetSFcnParam(S,2);
-	  if (!IS_PARAM_DOUBLE(pVal2)) {
+	  if (!IS_PARAM_UINT8(pVal2)) {
 	    validParam = true;
 	    paramIndex = 2;
 	    goto EXIT_POINT;
@@ -186,7 +186,7 @@ extern void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 
 	 {
 	  const mxArray *pVal3 = ssGetSFcnParam(S,3);
-	  if (!IS_PARAM_DOUBLE(pVal3)) {
+	  if (!IS_PARAM_UINT8(pVal3)) {
 	    validParam = true;
 	    paramIndex = 3;
 	    goto EXIT_POINT;
@@ -195,7 +195,7 @@ extern void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 
 	 {
 	  const mxArray *pVal4 = ssGetSFcnParam(S,4);
-	  if (!IS_PARAM_DOUBLE(pVal4)) {
+	  if (!IS_PARAM_UINT8(pVal4)) {
 	    validParam = true;
 	    paramIndex = 4;
 	    goto EXIT_POINT;
@@ -204,7 +204,7 @@ extern void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 
 	 {
 	  const mxArray *pVal5 = ssGetSFcnParam(S,5);
-	  if (!IS_PARAM_DOUBLE(pVal5)) {
+	  if (!IS_PARAM_UINT8(pVal5)) {
 	    validParam = true;
 	    paramIndex = 5;
 	    goto EXIT_POINT;
@@ -373,12 +373,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     const int_T   p_width3  = mxGetNumberOfElements(PARAM_DEF3(S));
     const int_T   p_width4  = mxGetNumberOfElements(PARAM_DEF4(S));
     const int_T   p_width5  = mxGetNumberOfElements(PARAM_DEF5(S));
-    const real_T  *rsParam  = (const real_T *)mxGetData(PARAM_DEF0(S));
-    const real_T  *enParam  = (const real_T *)mxGetData(PARAM_DEF1(S));
-    const real_T  *d4Param  = (const real_T *)mxGetData(PARAM_DEF2(S));
-    const real_T  *d5Param  = (const real_T *)mxGetData(PARAM_DEF3(S));
-    const real_T  *d6Param  = (const real_T *)mxGetData(PARAM_DEF4(S));
-    const real_T  *d7Param  = (const real_T *)mxGetData(PARAM_DEF5(S));
+    const uint8_T  *rsParam  = (const uint8_T *)mxGetData(PARAM_DEF0(S));
+    const uint8_T  *enParam  = (const uint8_T *)mxGetData(PARAM_DEF1(S));
+    const uint8_T  *d4Param  = (const uint8_T *)mxGetData(PARAM_DEF2(S));
+    const uint8_T  *d5Param  = (const uint8_T *)mxGetData(PARAM_DEF3(S));
+    const uint8_T  *d6Param  = (const uint8_T *)mxGetData(PARAM_DEF4(S));
+    const uint8_T  *d7Param  = (const uint8_T *)mxGetData(PARAM_DEF5(S));
 
     driver_LCD1602_sfcn_Outputs_wrapper(row1_ascii, row2_ascii, xD, rsParam, p_width0, enParam, p_width1, d4Param, p_width2, d5Param, p_width3, d6Param, p_width4, d7Param, p_width5);
 
@@ -402,12 +402,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     const int_T   p_width3  = mxGetNumberOfElements(PARAM_DEF3(S));
     const int_T   p_width4  = mxGetNumberOfElements(PARAM_DEF4(S));
     const int_T   p_width5  = mxGetNumberOfElements(PARAM_DEF5(S));
-    const real_T  *rsParam  = (const real_T *)mxGetData(PARAM_DEF0(S));
-    const real_T  *enParam  = (const real_T *)mxGetData(PARAM_DEF1(S));
-    const real_T  *d4Param  = (const real_T *)mxGetData(PARAM_DEF2(S));
-    const real_T  *d5Param  = (const real_T *)mxGetData(PARAM_DEF3(S));
-    const real_T  *d6Param  = (const real_T *)mxGetData(PARAM_DEF4(S));
-    const real_T  *d7Param  = (const real_T *)mxGetData(PARAM_DEF5(S));
+    const uint8_T  *rsParam  = (const uint8_T *)mxGetData(PARAM_DEF0(S));
+    const uint8_T  *enParam  = (const uint8_T *)mxGetData(PARAM_DEF1(S));
+    const uint8_T  *d4Param  = (const uint8_T *)mxGetData(PARAM_DEF2(S));
+    const uint8_T  *d5Param  = (const uint8_T *)mxGetData(PARAM_DEF3(S));
+    const uint8_T  *d6Param  = (const uint8_T *)mxGetData(PARAM_DEF4(S));
+    const uint8_T  *d7Param  = (const uint8_T *)mxGetData(PARAM_DEF5(S));
 
     driver_LCD1602_sfcn_Update_wrapper(row1_ascii, row2_ascii,  xD, rsParam, p_width0, enParam, p_width1, d4Param, p_width2, d5Param, p_width3, d6Param, p_width4, d7Param, p_width5);
 }
