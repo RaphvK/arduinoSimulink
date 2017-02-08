@@ -1,5 +1,5 @@
 %% File : driver_LCD1602_sfcn.tlc
-%% Created: Thu Oct 13 10:31:12 2016
+%% Created: Wed Feb  8 11:45:24 2017
 %%
 %% Description: 
 %%   Simulink Coder wrapper functions interface generated for 
@@ -27,21 +27,21 @@
   extern void driver_LCD1602_sfcn_Outputs_wrapper(const uint8_T *row1_ascii,
 			const uint8_T *row2_ascii,
 			const real_T *xD,
-			const real_T  *rsParam, const int_T  p_width0,
-			const real_T  *enParam, const int_T  p_width1,
-			const real_T  *d4Param, const int_T  p_width2,
-			const real_T  *d5Param, const int_T  p_width3,
-			const real_T  *d6Param, const int_T  p_width4,
-			const real_T  *d7Param, const int_T  p_width5);
+			const uint8_T  *rsParam, const int_T  p_width0,
+			const uint8_T  *enParam, const int_T  p_width1,
+			const uint8_T  *d4Param, const int_T  p_width2,
+			const uint8_T  *d5Param, const int_T  p_width3,
+			const uint8_T  *d6Param, const int_T  p_width4,
+			const uint8_T  *d7Param, const int_T  p_width5);
   extern void driver_LCD1602_sfcn_Update_wrapper(const uint8_T *row1_ascii,
 			const uint8_T *row2_ascii,
 			real_T *xD,
-			const real_T  *rsParam,  const int_T  p_width0,
-			const real_T  *enParam,  const int_T  p_width1,
-			const real_T  *d4Param,  const int_T  p_width2,
-			const real_T  *d5Param,  const int_T  p_width3,
-			const real_T  *d6Param,  const int_T  p_width4,
-			const real_T  *d7Param,  const int_T  p_width5);
+			const uint8_T  *rsParam,  const int_T  p_width0,
+			const uint8_T  *enParam,  const int_T  p_width1,
+			const uint8_T  *d4Param,  const int_T  p_width2,
+			const uint8_T  *d5Param,  const int_T  p_width3,
+			const uint8_T  *d6Param,  const int_T  p_width4,
+			const uint8_T  *d7Param,  const int_T  p_width5);
   %closefile externs
   %<LibCacheExtern(externs)>
   %%
