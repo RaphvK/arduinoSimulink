@@ -45,7 +45,7 @@ extern "C" void driver_LCD1602_sfcn_Outputs_wrapper(const uint8_T *row1_ascii,
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_BEGIN --- EDIT HERE TO _END */
 /* Loop */
 if(xD[0] == 1) {
-    #ifndef MATLAB_MEX_FILE
+    #ifndef MATLAB_MEX_FILE     // Only when code for hardware is generated
         lcd.clear();
         /* Row 1 */
             lcd.setCursor(0,0);

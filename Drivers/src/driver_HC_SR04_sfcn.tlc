@@ -1,5 +1,5 @@
 %% File : driver_HC_SR04_sfcn.tlc
-%% Created: Thu Oct 13 11:28:12 2016
+%% Created: Wed Feb  8 12:32:19 2017
 %%
 %% Description: 
 %%   Simulink Coder wrapper functions interface generated for 
@@ -26,12 +26,12 @@
     
   extern void driver_HC_SR04_sfcn_Outputs_wrapper(uint16_T *distance,
 			const real_T *xD,
-			const real_T  *trigParam, const int_T  p_width0,
-			const real_T  *echoParam, const int_T  p_width1);
+			const uint8_T  *trigParam, const int_T  p_width0,
+			const uint8_T  *echoParam, const int_T  p_width1);
   extern void driver_HC_SR04_sfcn_Update_wrapper(uint16_T *distance,
 			real_T *xD,
-			const real_T  *trigParam,  const int_T  p_width0,
-			const real_T  *echoParam,  const int_T  p_width1);
+			const uint8_T  *trigParam,  const int_T  p_width0,
+			const uint8_T  *echoParam,  const int_T  p_width1);
   %closefile externs
   %<LibCacheExtern(externs)>
   %%

@@ -25,7 +25,7 @@
   *  -------------------------------------------------------------------------
   * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
   *  ------------------------------------------------------------------------- 
-* Created: Thu Oct 13 11:28:12 2016
+* Created: Wed Feb  8 12:32:19 2017
 */
 #define S_FUNCTION_LEVEL 2
 #define S_FUNCTION_NAME driver_HC_SR04_sfcn
@@ -54,11 +54,11 @@
 #define NPARAMS              2
 /* Parameter  1 */
 #define PARAMETER_0_NAME      trigParam
-#define PARAMETER_0_DTYPE     real_T
+#define PARAMETER_0_DTYPE     uint8_T
 #define PARAMETER_0_COMPLEX   COMPLEX_NO
 /* Parameter  2 */
 #define PARAMETER_1_NAME      echoParam
-#define PARAMETER_1_DTYPE     real_T
+#define PARAMETER_1_DTYPE     uint8_T
 #define PARAMETER_1_COMPLEX   COMPLEX_NO
 
 #define SAMPLE_TIME_0        INHERITED_SAMPLE_TIME
@@ -81,17 +81,17 @@
 #define PARAM_DEF0(S) ssGetSFcnParam(S, 0)
 #define PARAM_DEF1(S) ssGetSFcnParam(S, 1)
 
-#define IS_PARAM_DOUBLE(pVal) (mxIsNumeric(pVal) && !mxIsLogical(pVal) &&\
-!mxIsEmpty(pVal) && !mxIsSparse(pVal) && !mxIsComplex(pVal) && mxIsDouble(pVal))
+#define IS_PARAM_UINT8(pVal) (mxIsNumeric(pVal) && !mxIsLogical(pVal) &&\
+!mxIsEmpty(pVal) && !mxIsSparse(pVal) && !mxIsComplex(pVal) && mxIsUint8(pVal))
 
 extern void driver_HC_SR04_sfcn_Outputs_wrapper(uint16_T *distance,
 			const real_T *xD,
-			const real_T  *trigParam, const int_T  p_width0,
-			const real_T  *echoParam, const int_T  p_width1);
+			const uint8_T  *trigParam, const int_T  p_width0,
+			const uint8_T  *echoParam, const int_T  p_width1);
 extern void driver_HC_SR04_sfcn_Update_wrapper(uint16_T *distance,
 			real_T *xD,
-			const real_T  *trigParam,  const int_T  p_width0,
-			const real_T  *echoParam,  const int_T  p_width1);
+			const uint8_T  *trigParam,  const int_T  p_width0,
+			const uint8_T  *echoParam,  const int_T  p_width1);
 
 /*====================*
  * S-function methods *
@@ -111,7 +111,7 @@ extern void driver_HC_SR04_sfcn_Update_wrapper(uint16_T *distance,
 
 	 {
 	  const mxArray *pVal0 = ssGetSFcnParam(S,0);
-	  if (!IS_PARAM_DOUBLE(pVal0)) {
+	  if (!IS_PARAM_UINT8(pVal0)) {
 	    validParam = true;
 	    paramIndex = 0;
 	    goto EXIT_POINT;
@@ -120,7 +120,7 @@ extern void driver_HC_SR04_sfcn_Update_wrapper(uint16_T *distance,
 
 	 {
 	  const mxArray *pVal1 = ssGetSFcnParam(S,1);
-	  if (!IS_PARAM_DOUBLE(pVal1)) {
+	  if (!IS_PARAM_UINT8(pVal1)) {
 	    validParam = true;
 	    paramIndex = 1;
 	    goto EXIT_POINT;
@@ -239,8 +239,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     const real_T   *xD = ssGetDiscStates(S);
     const int_T   p_width0  = mxGetNumberOfElements(PARAM_DEF0(S));
     const int_T   p_width1  = mxGetNumberOfElements(PARAM_DEF1(S));
-    const real_T  *trigParam  = (const real_T *)mxGetData(PARAM_DEF0(S));
-    const real_T  *echoParam  = (const real_T *)mxGetData(PARAM_DEF1(S));
+    const uint8_T  *trigParam  = (const uint8_T *)mxGetData(PARAM_DEF0(S));
+    const uint8_T  *echoParam  = (const uint8_T *)mxGetData(PARAM_DEF1(S));
 
     driver_HC_SR04_sfcn_Outputs_wrapper(distance, xD, trigParam, p_width0, echoParam, p_width1);
 
@@ -259,8 +259,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     uint16_T        *distance  = (uint16_T *)ssGetOutputPortRealSignal(S,0);
     const int_T   p_width0  = mxGetNumberOfElements(PARAM_DEF0(S));
     const int_T   p_width1  = mxGetNumberOfElements(PARAM_DEF1(S));
-    const real_T  *trigParam  = (const real_T *)mxGetData(PARAM_DEF0(S));
-    const real_T  *echoParam  = (const real_T *)mxGetData(PARAM_DEF1(S));
+    const uint8_T  *trigParam  = (const uint8_T *)mxGetData(PARAM_DEF0(S));
+    const uint8_T  *echoParam  = (const uint8_T *)mxGetData(PARAM_DEF1(S));
 
     driver_HC_SR04_sfcn_Update_wrapper(distance,  xD, trigParam, p_width0, echoParam, p_width1);
 }

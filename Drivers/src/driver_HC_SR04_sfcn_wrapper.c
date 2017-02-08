@@ -32,8 +32,8 @@
  */
 void driver_HC_SR04_sfcn_Outputs_wrapper(uint16_T *distance,
 			const real_T *xD,
-			const real_T  *trigParam, const int_T  p_width0,
-			const real_T  *echoParam, const int_T  p_width1)
+			const uint8_T  *trigParam, const int_T  p_width0,
+			const uint8_T  *echoParam, const int_T  p_width1)
 {
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_BEGIN --- EDIT HERE TO _END */
 /* Loop */
@@ -51,6 +51,7 @@ if(xD[0] == 1) {
             distance[0] = duration/58.2;
     #endif
 }
+
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_END --- EDIT HERE TO _BEGIN */
 }
 
@@ -60,8 +61,8 @@ if(xD[0] == 1) {
   */
 void driver_HC_SR04_sfcn_Update_wrapper(uint16_T *distance,
 			real_T *xD,
-			const real_T  *trigParam,  const int_T  p_width0,
-			const real_T  *echoParam,  const int_T  p_width1)
+			const uint8_T  *trigParam,  const int_T  p_width0,
+			const uint8_T  *echoParam,  const int_T  p_width1)
 {
   /* %%%-SFUNWIZ_wrapper_Update_Changes_BEGIN --- EDIT HERE TO _END */
 /* Setup */
@@ -73,5 +74,6 @@ if(xD[0] != 1) {
         
     xD[0] = 1;
 }
+
 /* %%%-SFUNWIZ_wrapper_Update_Changes_END --- EDIT HERE TO _BEGIN */
 }
