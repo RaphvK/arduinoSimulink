@@ -8,3 +8,7 @@ show how they can be used.
 
 Have a look at the the [Wiki](https://github.com/RaphvK/arduinoSimulink/wiki "Wiki of arduinoSimulink") 
 for more information and HowTos.
+
+This [QuickStart Guide: LCD](https://github.com/RaphvK/arduinoSimulink/wiki/QuickStart-Guide:-LCD)
+gives you a brief impression of how easily an LC-Display can be used in a Simulink model that
+runs on an Arduino board using the "Arduino Drivers" library from this project.
