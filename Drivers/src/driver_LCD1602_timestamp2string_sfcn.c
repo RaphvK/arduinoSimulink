@@ -25,7 +25,7 @@
   *  -------------------------------------------------------------------------
   * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
   *  ------------------------------------------------------------------------- 
-* Created: Thu Oct 13 10:50:46 2016
+* Created: Thu Feb  9 14:16:22 2017
 */
 #define S_FUNCTION_LEVEL 2
 #define S_FUNCTION_NAME driver_LCD1602_timestamp2string_sfcn
