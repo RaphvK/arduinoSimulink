@@ -39,7 +39,7 @@ void driver_HC_SR04_sfcn_Outputs_wrapper(uint16_T *distance,
 /* Loop */
 if(xD[0] == 1) {
     #ifndef MATLAB_MEX_FILE     // Only when code for hardware is generated
-        long duration;
+        unsigned long duration;
         /* Trigger Command */
             digitalWrite(trigParam[0], LOW); 
             delayMicroseconds(2);
@@ -47,11 +47,10 @@ if(xD[0] == 1) {
             delayMicroseconds(10); 
             digitalWrite(trigParam[0], LOW);
         /* Read Answer */
-            duration = pulseIn(echoParam[0], HIGH, 25000);
+            duration = pulseInLong(echoParam[0], HIGH, 25000);
             distance[0] = duration/58.2;
     #endif
 }
-
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_END --- EDIT HERE TO _BEGIN */
 }
 
@@ -68,12 +67,11 @@ void driver_HC_SR04_sfcn_Update_wrapper(uint16_T *distance,
 /* Setup */
 if(xD[0] != 1) {
     #ifndef MATLAB_MEX_FILE     // Only when code for hardware is generated
-        pinMode(trigPin[0], OUTPUT);
-        pinMode(echoPin[0], INPUT);
+        pinMode(trigParam[0], OUTPUT);
+        pinMode(echoParam[0], INPUT);
     #endif
         
     xD[0] = 1;
 }
-
 /* %%%-SFUNWIZ_wrapper_Update_Changes_END --- EDIT HERE TO _BEGIN */
 }

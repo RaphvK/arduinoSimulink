@@ -25,7 +25,7 @@
   *  -------------------------------------------------------------------------
   * | See matlabroot/simulink/src/sfuntmpl_doc.c for a more detailed template |
   *  ------------------------------------------------------------------------- 
-* Created: Wed Feb  8 12:32:19 2017
+* Created: Fri Feb 24 11:16:57 2017
 */
 #define S_FUNCTION_LEVEL 2
 #define S_FUNCTION_NAME driver_HC_SR04_sfcn
